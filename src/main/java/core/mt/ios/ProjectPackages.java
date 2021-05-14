@@ -9,7 +9,9 @@ public enum ProjectPackages {
     T1("com.gcb.T1"),
     TRADED_WELL("com.tradedwell"),
     HFT_TRADING_AU("au.com.hftrading"),
-    HFT_TRADING("com.hftrading");
+    HFT_TRADING("com.hftrading"),
+    PRIME_FIN("com.primefine"),
+    INVEST_LITE("com.bayline.InvestLite");
 
     private final String PROJECT_NAME;
 
