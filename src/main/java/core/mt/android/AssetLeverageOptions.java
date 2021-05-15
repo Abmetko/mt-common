@@ -21,8 +21,11 @@ public class AssetLeverageOptions {
         data.put(TRADED_WELL.getValue(), new String[]{"https://api-mobile-live.tradedwell.com", "572254"});
         data.put(HFT_TRADING_AU.getValue(), new String[]{"https://api-mobile-live.hftrading.com.au", "571854"});
         data.put(HFT_TRADING.getValue(), new String[]{"https://api-mobile-live.hftrading.com", "571855"});
-        data.put(PRIME_FIN.getValue(), new String[]{"https://api-mobile-live.primefine.com", ""});
-        data.put(INVEST_LITE.getValue(), new String[]{"https://api-mobile-live.investlite.com", ""});
+        data.put(PRIME_FIN.getValue(), new String[]{"https://api-mobile-live.primefine.com", "572783"});
+        data.put(INVEST_LITE.getValue(), new String[]{"https://api-mobile-live.investlite.com", "572782"});
+        data.put(CAPIXAL.getValue(), new String[]{"", ""});
+        data.put(IGMFX.getValue(), new String[]{"", ""});
+        data.put(INCEPTIAL.getValue(), new String[]{"", ""});
     }
 
     public String[] getData(){

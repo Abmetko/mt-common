@@ -11,7 +11,10 @@ public enum ProjectPackages {
     HFT_TRADING_AU("au.com.hftrading"),
     HFT_TRADING("com.hftrading"),
     PRIME_FIN("com.primefine"),
-    INVEST_LITE("com.bayline.InvestLite");
+    INVEST_LITE("com.bayline.InvestLite"),
+    CAPIXAL("com.capixal"),
+    IGMFX("com.igmfx"),
+    INCEPTIAL("com.inceptial");
 
     private final String PROJECT_NAME;
 
