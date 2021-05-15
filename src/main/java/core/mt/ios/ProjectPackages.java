@@ -14,7 +14,7 @@ public enum ProjectPackages {
     INVEST_LITE("com.bayline.InvestLite"),
     CAPIXAL("com.capixal"),
     IGMFX("com.igmfx"),
-    INCEPTIAL("com.inceptial");
+    INCEPTIAL("com.inceptial.app");
 
     private final String PROJECT_NAME;
 
