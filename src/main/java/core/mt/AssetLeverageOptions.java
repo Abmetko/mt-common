@@ -1,18 +1,20 @@
-package core.mt.android;
+package core.mt;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import static core.mt.android.ProjectPackages.*;
+import static core.mt.ProjectPackages.*;
 
 
 public class AssetLeverageOptions {
 
-    private final HashMap<String,String[]> data;
+    private final HashMap<String[],String[]> data;
     private final String brandName;
 
     public AssetLeverageOptions(String brandName){
         this.brandName = brandName;
         data = new HashMap<>();
+
         data.put(GLOBAL_TRADE_ATF.getValue(), new String[]{"https://api-mobile-live-global.tradeatf.com", "562065"});
         data.put(INVESTING_101.getValue(), new String[]{"https://api-mobile-live.101investing.com", "566656"});
         data.put(RO_INVESTING.getValue(), new String[]{"https://api-mobile-live.roinvesting.com", "566654"});
@@ -30,7 +32,7 @@ public class AssetLeverageOptions {
 
     public String[] getData(){
         return data.entrySet().stream()
-                .filter(e -> e.getKey().equals(brandName))
+                .filter(e -> Arrays.asList(e.getKey()).contains(brandName))
                 .map(Map.Entry::getValue).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No such package present"));
     }
