@@ -2,7 +2,7 @@ package core.mt.rest;
 
 import core.mt.AssetLeverageOptions;
 import core.mt.rest.dto.AssetLeverage;
-import core.mt.utils.PropertyLoader;
+import static core.mt.utils.PropertyLoader.getProperty;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import static core.mt.ProjectPackages.*;
-import static core.mt.utils.PropertyLoader.getProperty;
 import static io.restassured.RestAssured.given;
 
 
@@ -32,7 +31,7 @@ public class APIClient {
      **/
     public static void passTestStatus(String sessionId, String status, String reason) {
         Response response = given().auth()
-                .basic(PropertyLoader.getProperty("browserstack.login"), PropertyLoader.getProperty("browserstack.password"))
+                .basic(getProperty("browserstack.login"), getProperty("browserstack.password"))
                 .header("Content-Type", "application/json")
                 .body("{\"status\":\"" + status + "\", \"reason\":\"" + reason + "\"}")
                 .when()
@@ -43,7 +42,7 @@ public class APIClient {
 
     public static String getApplicationData(String app_url) {
         Response response = given().auth()
-                .basic(PropertyLoader.getProperty("browserstack.login"), PropertyLoader.getProperty("browserstack.password"))
+                .basic(getProperty("browserstack.login"), getProperty("browserstack.password"))
                 .when()
                 .get("https://api-cloud.browserstack.com/app-automate/recent_apps");
         response.then().extract().response();
@@ -87,9 +86,13 @@ public class APIClient {
     }
 
     public static int getAssetLeverage(String package_name){
+        String symbol = getProperty("instrument.set");
+        if(INCEPTIAL.getValueAsList().contains(package_name)){
+            symbol = getProperty("instrument.set.inceptial");
+        }
         Response response = given().auth().oauth2(getUserAccessToken(package_name))
                 .header("Content-Type", "application/json")
-                .body("{\"symbol\":\"" + PropertyLoader.getProperty("instrument.set") + "\"}")
+                .body("{\"symbol\":\"" + symbol + "\"}")
                 .when()
                 .post(ASSET_LEVERAGE_URL + "/fms/leverage");
         Double assetLeverage = response.then().statusCode(200).extract().as(AssetLeverage.class).getLeverage();
