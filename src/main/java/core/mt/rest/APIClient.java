@@ -25,7 +25,6 @@ public class APIClient {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
-
     /**
      * browserstack API
      **/
