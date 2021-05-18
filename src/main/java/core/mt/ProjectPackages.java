@@ -1,5 +1,9 @@
 package core.mt;
 
+import java.util.Arrays;
+import java.util.List;
+
+
 public enum ProjectPackages {
 
     GLOBAL_TRADE_ATF(new String[]{"com.mobiletrade.fms.globaltradeatf","com.tradeatf.global"}),
@@ -24,5 +28,9 @@ public enum ProjectPackages {
 
     public String[] getValue() {
         return PROJECT_NAME;
+    }
+
+    public List<String> getValueAsList() {
+        return Arrays.asList(PROJECT_NAME);
     }
 }
