@@ -17,9 +17,9 @@ import static core.mt.ProjectPackages.*;
 import static io.restassured.RestAssured.given;
 
 
-public class RestClient {
+public class APIClient {
 
-    private static final Logger LOGGER = LogManager.getLogger(RestClient.class);
+    private static final Logger LOGGER = LogManager.getLogger(APIClient.class);
 
     static {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
