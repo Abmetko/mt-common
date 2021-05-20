@@ -10,7 +10,6 @@ import java.io.IOException;
 public class CSVFeeder {
 
     private static CSVReader csvReader;
-
     private CSVFeeder(){ }
 
     public static CSVReader getCsvReaderInstance(){

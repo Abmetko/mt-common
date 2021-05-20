@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import static core.mt.ProjectPackages.*;
 
-
 public class AssetLeverageOptions {
 
     private final HashMap<String[],String[]> data;
