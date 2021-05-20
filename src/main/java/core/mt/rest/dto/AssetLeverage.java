@@ -11,6 +11,9 @@ public class AssetLeverage {
     @JsonProperty(value = "leverage")
     private Double leverage;
 
+    @JsonProperty(value = "margin")
+    private Double margin;
+
     public void setSymbol(String symbol){
         this.symbol = symbol;
     }
@@ -26,4 +29,20 @@ public class AssetLeverage {
     public Double getLeverage(){
         return leverage;
     }
+
+    public Double getMargin() {
+        return margin;
+    }
+
+    public void setMargin(Double margin) {
+        this.margin = margin;
+    }
 }
+
+/*
+{
+    "symbol": "ADAUSD",
+    "leverage": 2.0,
+    "margin": 89.0
+}
+*/
