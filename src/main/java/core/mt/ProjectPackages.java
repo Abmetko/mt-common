@@ -3,6 +3,7 @@ package core.mt;
 import java.util.Arrays;
 import java.util.List;
 
+
 public enum ProjectPackages {
 
     GLOBAL_TRADE_ATF(new String[]{"com.mobiletrade.fms.globaltradeatf","com.tradeatf.global"}),

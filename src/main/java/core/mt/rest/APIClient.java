@@ -3,13 +3,12 @@ package core.mt.rest;
 import core.mt.AssetLeverageOptions;
 import core.mt.rest.dto.AssetLeverage;
 import static core.mt.utils.PropertyLoader.getProperty;
+import core.mt.rest.dto.Token;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,15 +18,11 @@ import static io.restassured.RestAssured.given;
 
 public class APIClient {
 
-    private static final Logger LOGGER = LogManager.getLogger(APIClient.class);
-
     static {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
-    /**
-     * browserstack API
-     **/
+    /* browserstack API */
     public static void passTestStatus(String sessionId, String status, String reason) {
         Response response = given().auth()
                 .basic(getProperty("browserstack.login"), getProperty("browserstack.password"))
@@ -55,7 +50,7 @@ public class APIClient {
         return null;
     }
 
-    /** brands API **/
+    /* brands API */
     private static String ASSET_LEVERAGE_URL;
 
     public static String getUserAccessToken(String package_name){
@@ -78,10 +73,7 @@ public class APIClient {
                 .body(body)
                 .when()
                 .post(ASSET_LEVERAGE_URL + "/fms/auth/oauth/token");
-        response.then().assertThat().statusCode(200);
-        String access_token = response.jsonPath().get("access_token");
-        LOGGER.debug("User access_token: " + access_token);
-        return access_token;
+        return response.then().assertThat().statusCode(200).extract().as(Token.class).getAccessToken();
     }
 
     public static int getAssetLeverage(String package_name){
@@ -95,9 +87,6 @@ public class APIClient {
                 .when()
                 .post(ASSET_LEVERAGE_URL + "/fms/leverage");
         Double assetLeverage = response.then().statusCode(200).extract().as(AssetLeverage.class).getLeverage();
-        System.out.println(response);
-        int asset_leverage = (int) Math.round(assetLeverage);
-        LOGGER.debug("Asset leverage(" + ASSET_LEVERAGE_URL + "/fms/leverage" + "): " + asset_leverage);
-        return asset_leverage;
+        return (int) Math.round(assetLeverage);
     }
 }
