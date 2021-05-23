@@ -13,4 +13,8 @@ public class ValuesUtils {
     public static double getDoubleValue(String text){
         return Double.parseDouble(replaceCommaToDot(text));
     }
+
+    public static String assignStringValue(String value, String assign){
+        return String.format(assign, value);
+    }
 }
