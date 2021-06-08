@@ -28,6 +28,7 @@ public class AssetLeverageOptions {
         data.put(CAPIXAL.getValue(), new String[]{"https://api-mobile-live.capixal.com", "576103"});
         data.put(IGMFX.getValue(), new String[]{"https://api-mobile-live.igmfx.com", "572785"});
         data.put(INCEPTIAL.getValue(), new String[]{"https://api-mobile-live.inceptial.com", "70071385"});
+        data.put(BROKEREO.getValue(), new String[]{"https://api-mobile-live.brokereo.com", "572259"});
     }
 
     public String[] getData(){

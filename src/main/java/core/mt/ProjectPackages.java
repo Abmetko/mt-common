@@ -18,7 +18,8 @@ public enum ProjectPackages {
     INVEST_LITE(new String[]{"com.investlite","com.bayline.InvestLite"}),
     CAPIXAL(new String[]{"com.capixal"}),
     IGMFX(new String[]{"com.igmfx"}),
-    INCEPTIAL(new String[]{"com.inceptial","com.inceptial.app"});
+    INCEPTIAL(new String[]{"com.inceptial","com.inceptial.app"}),
+    BROKEREO(new String[]{"com.brokereo"});
 
     private final String[] PROJECT_NAME;
 
