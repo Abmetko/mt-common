@@ -17,7 +17,6 @@ public class Retry {
     public static void whileTrue(int pollingIntervalMs, int timeoutMilliseconds, Supplier<Boolean> supplier, String exceptionMsg) throws TimeoutException {
         long timeStart = System.currentTimeMillis();
         while (supplier.get()) {
-            System.out.println("it's true");
             if (System.currentTimeMillis() - timeStart > timeoutMilliseconds) {
                 throw new TimeoutException(String.format("Time out after %d ms: ", timeoutMilliseconds) + exceptionMsg);
             }
