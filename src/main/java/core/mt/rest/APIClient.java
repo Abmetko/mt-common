@@ -3,15 +3,21 @@ package core.mt.rest;
 import core.mt.AssetLeverageOptions;
 import core.mt.rest.dto.AssetLeverage;
 import static core.mt.utils.PropertyLoader.getProperty;
+
+import core.mt.rest.dto.Order;
 import core.mt.rest.dto.Token;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import static core.mt.ProjectPackages.*;
 import static io.restassured.RestAssured.given;
 
@@ -88,5 +94,21 @@ public class APIClient {
                 .post(ASSET_LEVERAGE_URL + "/fms/leverage");
         Double assetLeverage = response.then().statusCode(200).extract().as(AssetLeverage.class).getLeverage();
         return (int) Math.round(assetLeverage);
+    }
+
+    public static Order[] getOrder(String package_name, int type, long days){
+        int cmd = 5;
+        long endTime = System.currentTimeMillis();
+        long startTime = endTime - 86400000 * days;
+        if(INCEPTIAL.getValueAsList().contains(package_name)){
+            cmd = 100;
+        }
+        Response response = given().auth().oauth2(getUserAccessToken(package_name))
+                .header("Content-Type", "application/json")
+                .body("{\"startTime\": " + startTime + ",\"endTime\": " + endTime + ",\"cmd\": " + cmd +
+                        ",\"type\": " + type + "}")
+                .when()
+                .post(ASSET_LEVERAGE_URL + "/fms/history");
+        return response.then().statusCode(200).extract().as(Order[].class);
     }
 }
