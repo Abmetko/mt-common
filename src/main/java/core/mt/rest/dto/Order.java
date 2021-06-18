@@ -51,7 +51,7 @@ public class Order {
     @JsonProperty("order")
     private Integer order;
     @JsonProperty("closeTime")
-    private Integer closeTime;
+    private Long closeTime;
     @JsonProperty("closePrice")
     private Double closePrice;
     @JsonProperty("profit")
@@ -164,12 +164,12 @@ public class Order {
     }
 
     @JsonProperty("closeTime")
-    public Integer getCloseTime() {
+    public Long getCloseTime() {
         return closeTime;
     }
 
     @JsonProperty("closeTime")
-    public void setCloseTime(Integer closeTime) {
+    public void setCloseTime(Long closeTime) {
         this.closeTime = closeTime;
     }
 
