@@ -105,7 +105,7 @@ public class APIClient {
         }
         Response response = given().auth().oauth2(getUserAccessToken(package_name))
                 .header("Content-Type", "application/json")
-                .body("{\"startTime\": " + startTime + ",\"endTime\": " + endTime + ",\"cmd\": " + cmd +
+                .body("{\"startTime\": " + endTime + ",\"endTime\": " + startTime + ",\"cmd\": " + cmd +
                         ",\"type\": " + type + "}")
                 .when()
                 .post(ASSET_LEVERAGE_URL + "/fms/history");
