@@ -101,7 +101,7 @@ public class APIClient {
         long endTime = System.currentTimeMillis();
         long startTime = endTime - 86400000 * days;
         if(INCEPTIAL.getValueAsList().contains(package_name)){
-            cmd = 100;
+            cmd = 5;
         }
         Response response = given().auth().oauth2(getUserAccessToken(package_name))
                 .header("Content-Type", "application/json")
