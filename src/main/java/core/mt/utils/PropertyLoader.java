@@ -18,7 +18,7 @@ public class PropertyLoader {
         if (value != null) {
             return value;
         } else {
-            throw new IllegalArgumentException(String.format("Property <%s> is not found in file <%s>",propertyName, PROP_FILE));
+            throw new IllegalArgumentException(String.format("Property %s is not found in file %s",propertyName, PROP_FILE));
         }
     }
 

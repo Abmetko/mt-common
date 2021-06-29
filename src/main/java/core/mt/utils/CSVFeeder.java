@@ -3,6 +3,7 @@ package core.mt.utils;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
+
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -10,9 +11,11 @@ import java.io.IOException;
 public class CSVFeeder {
 
     private static CSVReader csvReader;
-    private CSVFeeder(){ }
 
-    public static CSVReader getCsvReaderInstance(){
+    private CSVFeeder() {
+    }
+
+    public static CSVReader getCsvReaderInstance() {
         if (csvReader == null) {
             {
                 try {
@@ -26,11 +29,11 @@ public class CSVFeeder {
         return csvReader;
     }
 
-    public static String extractData(String packageName){
+    public static String extractData(String packageName) {
         String extractedData;
         try {
-            for(String[] line:getCsvReaderInstance().readAll()){
-                if(line[0].equals(packageName)){
+            for (String[] line : getCsvReaderInstance().readAll()) {
+                if (line[0].equals(packageName)) {
                     extractedData = line[1];
                     getCsvReaderInstance().close();
                     return extractedData;

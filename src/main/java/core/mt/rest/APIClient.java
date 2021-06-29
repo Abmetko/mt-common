@@ -2,6 +2,7 @@ package core.mt.rest;
 
 import core.mt.AssetLeverageOptions;
 import core.mt.rest.dto.AssetLeverage;
+
 import static core.mt.utils.PropertyLoader.getProperty;
 
 import core.mt.rest.dto.Order;
@@ -28,6 +29,7 @@ public class APIClient {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
+
     /* browserstack API */
     public static void passTestStatus(String sessionId, String status, String reason) {
         Response response = given().auth()
@@ -59,32 +61,31 @@ public class APIClient {
     /* brands API */
     private static String ASSET_LEVERAGE_URL;
 
-    public static String getUserAccessToken(String package_name){
+    public static String getUserAccessToken(String package_name) {
         AssetLeverageOptions assetLeverageOptions = new AssetLeverageOptions(package_name);
         String userId = assetLeverageOptions.getData()[1];
         ASSET_LEVERAGE_URL = assetLeverageOptions.getData()[0];
 
         String userPassword = getProperty("user.password");
-        if(Arrays.asList(HFT_TRADING_AU.getValue()).contains(package_name)){
+        if (Arrays.asList(HFT_TRADING_AU.getPROJECT_NAME()).contains(package_name)) {
             userPassword = getProperty("user.password.hft");
-        }
-        else if(Arrays.asList(HFT_TRADING.getValue()).contains(package_name)){
+        } else if (Arrays.asList(HFT_TRADING.getPROJECT_NAME()).contains(package_name)) {
             userPassword = getProperty("user.password.hft");
         }
         String body = String.format("grant_type=%s&username=%s&password=%s", "password", userId, userPassword);
         Response response = given()
                 .header("Content-Type", "application/x-www-form-urlencoded")
-                .header("authorization",getProperty("auth.basic"))
-                .header("grant_type","password")
+                .header("authorization", getProperty("auth.basic"))
+                .header("grant_type", "password")
                 .body(body)
                 .when()
                 .post(ASSET_LEVERAGE_URL + "/fms/auth/oauth/token");
         return response.then().assertThat().statusCode(200).extract().as(Token.class).getAccessToken();
     }
 
-    public static int getAssetLeverage(String package_name){
+    public static int getAssetLeverage(String package_name) {
         String symbol = getProperty("instrument.set");
-        if(INCEPTIAL.getValueAsList().contains(package_name)){
+        if (Arrays.asList(INCEPTIAL.getPROJECT_NAME()).contains(package_name)) {
             symbol = getProperty("instrument.set.inceptial");
         }
         Response response = given().auth().oauth2(getUserAccessToken(package_name))
@@ -96,11 +97,11 @@ public class APIClient {
         return (int) Math.round(assetLeverage);
     }
 
-    public static Order[] getOrder(String package_name, int type, long days){
+    public static Order[] getOrder(String package_name, int type, long days) {
         int cmd = 5;
         long endTime = System.currentTimeMillis();
         long startTime = endTime - 86400000 * days;
-        if(INCEPTIAL.getValueAsList().contains(package_name)){
+        if (Arrays.asList(INCEPTIAL.getPROJECT_NAME()).contains(package_name)) {
             cmd = 5;
         }
         Response response = given().auth().oauth2(getUserAccessToken(package_name))
