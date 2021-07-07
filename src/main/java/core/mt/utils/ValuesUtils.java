@@ -2,6 +2,14 @@ package core.mt.utils;
 
 public class ValuesUtils {
 
+    public static String getOnlyDigitsFromValue(String text){
+        return text.replaceAll("[^\\d.]","");
+    }
+
+    public static String removeDigitsFromValue(String text){
+        return text.replaceAll("\\d.","");
+    }
+
     public static String replaceCommaToDot(String text) {
         return text.replace(",", ".");
     }
