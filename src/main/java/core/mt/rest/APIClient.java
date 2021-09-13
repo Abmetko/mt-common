@@ -2,9 +2,6 @@ package core.mt.rest;
 
 import core.mt.AssetLeverageOptions;
 import core.mt.rest.dto.AssetLeverage;
-
-import static core.mt.utils.PropertyLoader.getProperty;
-
 import core.mt.rest.dto.Order;
 import core.mt.rest.dto.Token;
 import io.restassured.RestAssured;
@@ -12,18 +9,20 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static core.mt.ProjectPackages.*;
+import static core.mt.utils.PropertyLoader.getProperty;
 import static io.restassured.RestAssured.given;
 
 
 public class APIClient {
+
+    /* brands API */
+    private static String ASSET_LEVERAGE_URL;
 
     static {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
@@ -57,9 +56,6 @@ public class APIClient {
         }
         return null;
     }
-
-    /* brands API */
-    private static String ASSET_LEVERAGE_URL;
 
     public static String getUserAccessToken(String package_name) {
         AssetLeverageOptions assetLeverageOptions = new AssetLeverageOptions(package_name);
@@ -99,14 +95,25 @@ public class APIClient {
 
     public static Order[] getOrder(String package_name, int type, long days) {
         int cmd = 5;
-        long endTime = System.currentTimeMillis();
-        long startTime = endTime - 86400000 * days;
+
+        long endTime;
+        long startTime;
+
+        if (type == 0) {
+            endTime = System.currentTimeMillis();
+            startTime = 0;
+        } else {
+            startTime = System.currentTimeMillis();
+            endTime = startTime - 86400000 * days;
+        }
+
+
         if (Arrays.asList(INCEPTIAL.getPROJECT_NAME()).contains(package_name)) {
             cmd = 5;
         }
         Response response = given().auth().oauth2(getUserAccessToken(package_name))
                 .header("Content-Type", "application/json")
-                .body("{\"startTime\": " + endTime + ",\"endTime\": " + startTime + ",\"cmd\": " + cmd +
+                .body("{\"startTime\": " + startTime + ",\"endTime\": " + endTime + ",\"cmd\": " + cmd +
                         ",\"type\": " + type + "}")
                 .when()
                 .post(ASSET_LEVERAGE_URL + "/fms/history");
