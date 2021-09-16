@@ -20,7 +20,7 @@ public enum ProjectPackages {
     CAPIXAL(new String[]{"com.capixal"}),
     IGMFX(new String[]{"com.igmfx"}),
     INCEPTIAL(new String[]{"com.inceptial", "com.inceptial.app"}),
-    BROKEREO(new String[]{"com.brokereo"});
+    BROKEREO(new String[]{"com.brokereo", "com.concorde.brokereo"});
 
     private final String[] PROJECT_NAME;
 }
