@@ -107,7 +107,6 @@ public class APIClient {
             endTime = startTime - 86400000 * days;
         }
 
-
         if (Arrays.asList(INCEPTIAL.getPROJECT_NAME()).contains(package_name)) {
             cmd = 5;
         }
